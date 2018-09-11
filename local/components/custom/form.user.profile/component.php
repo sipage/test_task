@@ -1,16 +1,22 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
 $arResult = [
-    'NAME' => $arParams['NAME'],
-    'PERSONAL_BIRTHDATE' => $arParams['PERSONAL_BIRTHDATE'],
-    'PERSONAL_PHONE' => $arParams['PERSONAL_PHONE'],
+    'USER_FIELDS' => [
+
+        'NAME' => $arParams['NAME'],
+        'PERSONAL_BIRTHDATE' => $arParams['PERSONAL_BIRTHDATE'],
+        'PERSONAL_PHONE' => $arParams['PERSONAL_PHONE']
+    ],
 
     'DIC' => [
-        'NAME' => 'Имя',
-        'PERSONAL_BIRTHDATE' => 'Дата рождения',
-        'PERSONAL_PHONE' => 'Номер телефона'
+        'NAME' => GetMessage('NAME'),
+        'PERSONAL_BIRTHDATE' => GetMessage('PERSONAL_BIRTHDATE'),
+        'PERSONAL_PHONE' => GetMessage('PERSONAL_PHONE')
     ]
 ];
-
-$this -> includeComponentTemplate();
+if (!empty($_REQUEST)) {
+    var_dump($_REQUEST);
+    exit();
+}
+$this->includeComponentTemplate();
 ?>
