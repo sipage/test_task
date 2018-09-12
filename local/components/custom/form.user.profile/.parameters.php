@@ -20,6 +20,12 @@ $arComponentParameters = [
             'TYPE' => 'STRING',
             'DEFAULT' => ''
         ],
+        'back_url' => [
+            'PARENT' => 'BASE',
+            'NAME' => 'Путь редиректа',
+            'TYPE' => 'STRING',
+            'DEFAULT' => '/'
+        ]
 
     ],
 ];

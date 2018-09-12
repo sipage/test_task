@@ -1,7 +1,7 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
-var_dump($arParams);
 
 $arUserData = [];
+$arResult['CORRECT'] = 'N';
 
 $requiredUserData = [
     'NAME',
@@ -34,25 +34,12 @@ if (!$USER->IsAuthorized()) {
             $arUserData[$requiredUserData[$i]] = $arUser[$requiredUserData[$i]];
         }
     }
+
+    $arResult = [
+        'CORRECT' => $error === 0 ? 'Y' : 'N',
+        'USER_FIELDS' => $arUserData
+    ];
 }
 
-if ($error === 0) {
-
-    $APPLICATION->IncludeComponent(
-        "custom:form.user.file",
-        ""
-    );
-} else {
-
-    $APPLICATION->IncludeComponent(
-        "custom:form.user.profile",
-        "",
-        Array(
-            'NAME' => $arUserData['NAME'],
-            'PERSONAL_BIRTHDATE' => $arUserData['PERSONAL_BIRTHDATE'],
-            'PERSONAL_PHONE' => $arUserData['PERSONAL_PHONE']
-        )
-    );
-}
-
+$this->includeComponentTemplate();
 ?>

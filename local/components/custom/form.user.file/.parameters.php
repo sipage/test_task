@@ -1,13 +1,15 @@
-<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
-
+<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
+<?
 if(!CModule::IncludeModule("iblock"))
     return;
+
 $arIBlockType = CIBlockParameters::GetIBlockTypes();
 
 $arIBlock=array();
 $rsIBlock = CIBlock::GetList(Array("SORT" => "ASC"), Array("TYPE" => $arCurrentValues["IBLOCK_TYPE"], "ACTIVE"=>"Y"));
-while($arr=$rsIBlock->Fetch())
-{
+
+while($arr=$rsIBlock->Fetch()) {
+
     $arIBlock[$arr["ID"]] = "[".$arr["ID"]."] ".$arr["NAME"];
 }
 
@@ -34,13 +36,6 @@ $arComponentParameters = [
             'TYPE' => 'STRING',
             'DEFAULT' => 'png, gif, jpg, jpeg'
         ],
-        'ONLY_AUTH_USER' => [
-            'PARENT' => 'BASE',
-            'NAME' => 'Только авторизованным ?',
-            'TYPE' => 'CHECKBOX',
-            'DEFAULT' => 'Y'
-        ]
-
     ],
 ];
 ?>

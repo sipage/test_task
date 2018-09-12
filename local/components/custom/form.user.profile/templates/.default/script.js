@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     (function () {
 
         const validate = (value, id) => {
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
 
             formElements.map(item => {
-                if (item.tagName === 'INPUT') {
+                if (item.tagName === 'INPUT' && item.type === 'text') {
                     let {id, isValid, resMess} = validate(item.value, item.id);
                     let elP = document.createElement('span');
                     elP.innerHTML = resMess;

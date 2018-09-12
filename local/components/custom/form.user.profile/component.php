@@ -14,9 +14,23 @@ $arResult = [
         'PERSONAL_PHONE' => GetMessage('PERSONAL_PHONE')
     ]
 ];
-if (!empty($_REQUEST)) {
-    var_dump($_REQUEST);
-    exit();
+
+if (!empty($_REQUEST['USERS_FIELDS'])) {
+
+    $user_update_field = [];
+
+    foreach ($_REQUEST['USERS_FIELDS'] as $key => $value) {
+
+        $$key = htmlspecialchars(trim((string)$value));
+        $user_update_field[$key] = $$key ;
+    }
+
+    if (!$USER->Update($USER->GetID(), $user_update_field)) {
+
+        $arResult['ERROR_UPDATE'] .= $USER->LAST_ERROR;
+    } else {
+        LocalRedirect($arParams['back_url']);
+    }
 }
 $this->includeComponentTemplate();
 ?>

@@ -2,12 +2,14 @@
 
 if(!CModule::IncludeModule("iblock"))
     return;
+
 $arIBlockType = CIBlockParameters::GetIBlockTypes();
 
 $arIBlock=array();
 $rsIBlock = CIBlock::GetList(Array("SORT" => "ASC"), Array("TYPE" => $arCurrentValues["IBLOCK_TYPE"], "ACTIVE"=>"Y"));
-while($arr=$rsIBlock->Fetch())
-{
+
+while ($arr=$rsIBlock->Fetch()) {
+
     $arIBlock[$arr["ID"]] = "[".$arr["ID"]."] ".$arr["NAME"];
 }
 
