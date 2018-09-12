@@ -1,7 +1,10 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
 $arUserData = [];
-$arResult['CORRECT'] = 'N';
+$arResult= [
+    'CORRECT' => 'N',
+    'IS_AUTH_USER' => $USER->IsAuthorized()
+];
 
 $requiredUserData = [
     'NAME',
@@ -11,35 +14,29 @@ $requiredUserData = [
 
 $error = 0;
 
-if (!$USER->IsAuthorized()) {
-    echo 'нужно авторизоваться';
-} else {
-    $by = 'ID';
-    $order='desc';
-    $arFilter = [
-        '=ID' => $USER->GetID(),
-    ];
+$by = 'ID';
+$order='desc';
+$arFilter = [
+    '=ID' => $USER->GetID(),
+];
 
-    $resUser = $USER->GetList($by,$order, $arFilter);
+$resUser = $USER->GetList($by,$order, $arFilter);
 
-    while ($arUser = $resUser->Fetch()) {
+while ($arUser = $resUser->Fetch()) {
 
-        for($i = 0, $count = count($requiredUserData); $i < $count; $i++) {
+    for($i = 0, $count = count($requiredUserData); $i < $count; $i++) {
 
-            if (empty($arUser[$requiredUserData[$i]])) {
+        if (empty($arUser[$requiredUserData[$i]])) {
 
-                $error++;
-            }
-
-            $arUserData[$requiredUserData[$i]] = $arUser[$requiredUserData[$i]];
+            $error++;
         }
-    }
 
-    $arResult = [
-        'CORRECT' => $error === 0 ? 'Y' : 'N',
-        'USER_FIELDS' => $arUserData
-    ];
+        $arUserData[$requiredUserData[$i]] = $arUser[$requiredUserData[$i]];
+    }
 }
+
+$arResult['CORRECT'] =  $error === 0 ? 'Y' : 'N';
+$arResult['USER_FIELDS'] =  $arUserData;
 
 $this->includeComponentTemplate();
 ?>

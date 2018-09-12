@@ -12,7 +12,7 @@
         )
     );?>
 
-<? else: ?>
+<? elseif ($arResult['IS_AUTH_USER']): ?>
 
 <?$APPLICATION->IncludeComponent(
     "custom:form.user.profile",
@@ -24,4 +24,6 @@
     )
 );?>
 
+<? else: ?>
+    <h1>Нужно авторизоваться</h1>
 <? endif; ?>
